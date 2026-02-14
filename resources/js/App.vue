@@ -1,14 +1,13 @@
-<!-- resources/js/App.vue -->
 <template>
-    <div id="app" class="min-h-screen bg-gray-100">
-         <h1>Daily Grow</h1>
-    <hr>
+  <div id="app">
     <router-view></router-view>
-    </div>
+  </div>
 </template>
 
 <script>
-
+export default {
+  name: 'App'
+}
 </script>
 
-<style scoped></style>
+<style src="../css/main.css"></style>
