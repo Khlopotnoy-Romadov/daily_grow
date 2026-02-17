@@ -1,13 +1,14 @@
 <?php
 // routes/web.php
 
-use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ReviewController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 */
+
+Route::post('/api/yandex/parse-reviews', [ReviewController::class, 'parseReviews']);
 
 Route::get('/{any?}', function () {
     return view('app');

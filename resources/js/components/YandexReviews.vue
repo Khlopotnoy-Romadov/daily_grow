@@ -190,6 +190,8 @@
 </template>
 
 <script>
+import { useReviewsStore } from '../reviewsStore';
+
 export default {
   name: 'YandexReviews',
   data() {
@@ -209,11 +211,22 @@ export default {
       ]
     }
   },
+
+  mounted() {
+    this.reviewsStore.setAuthor()
+    console.log('В mounted', this.reviewsStore.allReviews)
+    this.reviews = this.reviewsStore.allReviews
+  },  
+
   computed: {
     averageRating() {
       if (this.reviews.length === 0) return '0.0';
       const sum = this.reviews.reduce((acc, review) => acc + review.rating, 0);
       return (sum / this.reviews.length).toFixed(1);
+    },
+
+    reviewsStore(){
+      return useReviewsStore();
     },
     
     totalReviews() {
