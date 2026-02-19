@@ -1,12 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SettingController;
 
-Route::post('/yandex/parse-reviews', [ReviewController::class, 'parseReviews']);
+// Sanctum CSRF cookie
+Route::get('/sanctum/csrf-cookie', function () {
+    return response()->json(['message' => 'CSRF cookie set']);
+});
 
-Route::post('/login', [AuthController::class, 'login']);
+// Публичные маршруты
+Route::post('/login', [AuthController::class, 'login']); // POST /api/login
 
+// Защищенные маршруты
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('/user', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -15,5 +22,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/settings', [SettingController::class, 'update']);
 
     Route::get('/reviews', [ReviewController::class, 'index']);
-    Route::post('/rewiews/fetch', [ReviewController::class, 'fetchFromYandex']);
+    Route::post('/reviews/fetch', [ReviewController::class, 'fetchFromYandex']);
+    
+    Route::post('/yandex/parse-reviews', [ReviewController::class, 'parseReviews']);
 });

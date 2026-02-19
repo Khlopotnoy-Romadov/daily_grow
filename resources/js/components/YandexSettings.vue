@@ -170,7 +170,6 @@ export default {
       }
 
       // Сохраняем ссылку
-      console.log('🔗 Сохраняем ссылку:', this.yandexLink);
 
       // Получаем отзывы
       await this.fetchReviews(this.yandexLink);
@@ -182,14 +181,12 @@ export default {
       this.error = null;
       this.reviews = [];
       
-      console.log('🔍 Запрос отзывов для URL:', url);
       
       try {
         const response = await axios.post('/api/yandex/parse-reviews', {
           url: url
         });
         
-        console.log('✅ Результат запроса:', response);
         
         if (response.data.success) {
           this.reviews = response.data.data;

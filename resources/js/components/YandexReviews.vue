@@ -210,7 +210,7 @@ export default {
 
   mounted() {
     this.reviewsStore.setAuthor()
-    console.log('В mounted', this.reviewsStore.allReviews)
+
     this.reviews = this.reviewsStore.allReviews
   },  
 

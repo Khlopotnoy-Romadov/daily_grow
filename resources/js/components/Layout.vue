@@ -9,11 +9,11 @@
       
       <div class="user-info">
         <div class="user-avatar">
-          <span class="avatar-text">DG</span>
+          <span class="avatar-text">{{ userInitials }}</span>
         </div>
         <div class="user-details">
           <p class="user-label">Пользователь</p>
-          <p class="user-name">demo@dailygrow.ru</p>
+          <p class="user-name">{{ authStore.user?.login || 'Загрузка...' }}</p>
         </div>
       </div>
       
@@ -43,9 +43,13 @@
       </div>
       
       <div class="sidebar-footer">
-        <button class="logout-btn">
+        <button 
+          @click="handleLogout" 
+          class="logout-btn"
+          :disabled="authStore.loading"
+        >
           <span class="logout-icon">👋</span>
-          <span>Выйти</span>
+          <span>{{ authStore.loading ? 'Выход...' : 'Выйти' }}</span>
         </button>
         <p class="version-text">Версия 1.0.0</p>
       </div>
@@ -60,9 +64,29 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Layout'
+<script setup>
+import { computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
+
+const router = useRouter()
+const route = useRoute()
+const authStore = useAuthStore()
+
+// Инициалы пользователя для аватара
+const userInitials = computed(() => {
+  if (authStore.user?.login) {
+    return authStore.user.login.substring(0, 2).toUpperCase()
+  }
+  return 'DG'
+})
+
+// Выход из системы
+const handleLogout = async () => {
+  const result = await authStore.logout()
+  if (result.success) {
+    router.push('/login')
+  }
 }
 </script>
 
