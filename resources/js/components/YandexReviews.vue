@@ -85,7 +85,7 @@
             
             <p class="review-text">{{ review.text }}</p>
             
-            <div class="review-footer">
+            <!-- <div class="review-footer">
               <button class="action-btn">
                 <span class="action-icon">👍</span>
                 <span>Полезно</span>
@@ -95,7 +95,7 @@
                 <span>Ответить</span>
               </button>
               <span class="review-time">{{ review.time }}</span>
-            </div>
+            </div> -->
           </div>
         </transition-group>
         
